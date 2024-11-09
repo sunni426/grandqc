@@ -1,4 +1,4 @@
-# **!!! THIS IS AN ALPHA VERSION OF GRANDQC REPOSITORIUM !!!**
+
 
 
 <div align="center">
