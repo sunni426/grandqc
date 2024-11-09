@@ -117,10 +117,10 @@ sh run_art.sh
 
 ### For WSIs with the form of `ome.tiff`
 
-Fot this case, you need to use the scripts in `03_WSI_inference_OME_TIFF`:
+Fot this case, you need to use the scripts in `02_WSI_inference_OME_TIFF_QC`:
 
 ```commandline
-cd 03_WSI_inference_OME_TIFF
+cd 02_WSI_inference_OME_TIFF_QC
 ```
 
 abd then same as the usage above.
