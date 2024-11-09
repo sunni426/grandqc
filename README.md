@@ -71,21 +71,23 @@ The System is **Ubuntu 22.04**.
 
 ## How to use different versions (5x ,7x, 10x)
 
-The default version is 7x (Checkpoint: v35_E14.pth)
+**We have released all the models on Zenodo**: [Models](https://zenodo.org/records/14041538)
+
+The default version is 7x (Checkpoint: GrandQC_MPP15.pth)
 
 To use 5x and 10x checkpoints, the `main.py` script should be modified.
 
 For 5x, use:
 
 ```commandline
-MODEL_QC_NAME = 'v33_E40.pth'
+MODEL_QC_NAME = 'GrandQC_MPP2.pth'
 
 MPP_MODEL_1 = 2
 ```
 For 10x, use:
 
 ```commandline
-MODEL_QC_NAME = 'v36_E21.pth'
+MODEL_QC_NAME = 'GrandQC_MPP1.pth'
 MPP_MODEL_1 = 1
 ```
 
