@@ -5,18 +5,26 @@
   <img src="Figures/logo.png" width="600"/>
   <div>&nbsp;</div>
 
-[![badge](https://img.shields.io/badge/Team-Tolkach-blue)](https://tolklab.de/team)
-[![paper](https://img.shields.io/badge/Paper-revision-red)](...)
-[![version](https://img.shields.io/badge/Version-1.0.0-green)](...)
-
 </div>
 
 <div align="center">
-    <img src="Figures/merge1.gif" height="200" width="500"/>
-    <img src="Figures/merge2.gif" height="200" width="500"/>
+    <img src="Figures/merge1.gif" height="200" width="500px"/>
+    <img src="Figures/merge2.gif" height="200" width="500px"/>
 </div>
 
+# GrandQC
+
+## A comprehensive solution toquality control problem in digital pathology
+
+*Nature Communications*
+
+ [Journal Link](https://www.nature.com/articles/s41467-024-54769-y) | [Open Access Read Link](https://rdcu.be/d3I7H) | [Download Model](https://zenodo.org/records/14041538) | [Cite](#reference) 
+
+**Abstract:** Histological slides contain numerous artifacts that can significantly deterioratethe performance of image analysis algorithms. Here we develop the GrandQCtool for tissue and multi-class artifact segmentation. GrandQC allows for high-precision tissue segmentation (Dice score 0.957) and segmentation of tissuewithout artifacts (Dice score 0.919–0.938 dependent on magnification). Slidesfrom 19 international pathology departments digitized with the most commonscanning systems and from The Cancer Genome Atlas dataset were used toestablish a QC benchmark, analyzing inter-institutional, intra-institutional,temporal, and inter-scanner slide quality variations. GrandQC improves theperformance of downstream image analysis algorithms. We open-source theGrandQC tool, our large manually annotated test dataset, and all QC masks forthe entire TCGA cohort to address the problem of QC in digital/computationalpathology. GrandQC can be used as a tool to monitor sample preparation andscanning quality in pathology departments and help to track and eliminatemajor artifact sources.
+
 ## Introduction
+
+### Overview
 
 GrandQC is an open source artifacts segmentation toolbox based on PyTorch.
 
@@ -57,12 +65,27 @@ The System is **Ubuntu 22.04**.
 
 </details>
 
+### Model selection
+
+To balance accuracy and inference efficiency, we have trained three different models based on three magnifications (5x, 7x, and 10x). As the magnification decreases, the inference speed increases, but accuracy may be slightly affected. Users can choose the appropriate 
+model based on their specific requirements.
+
+Here is an example of one ROI(Region of Interest) image from one Whole Slide Image:
+
+<div align="center">
+  <img width="80%" alt="ROI and slide classification results" src="Figures/img.png">
+</div>
+
+
+
+
+
 ## Installation
 
 ### Install Dependencies
 > conda create -n grandqc python==3.10 -y && conda activate grandqc
 > 
-> git clone xxx && cd GrandQC
+> git clone https://github.com/cpath-ukk/grandqc.git && cd grandqc
 > 
 > pip install -r requirement.txt
 
@@ -71,7 +94,13 @@ The System is **Ubuntu 22.04**.
 
 ## How to use different versions (5x ,7x, 10x)
 
-**We have released all the models on Zenodo**: [Models](https://zenodo.org/records/14041538)
+**We have released all the models on Zenodo**: 
+
+Artifacts Detection Models: [Models](https://zenodo.org/records/14041538)
+
+Tissue Detection Models: [Model](https://zenodo.org/records/14507273)
+
+
 
 The default version is 7x (Checkpoint: GrandQC_MPP15.pth)
 
@@ -81,14 +110,13 @@ For 5x, use:
 
 ```commandline
 MODEL_QC_NAME = 'GrandQC_MPP2.pth'
-
-MPP_MODEL_1 = 2
+MPP_MODEL = 2
 ```
 For 10x, use:
 
 ```commandline
 MODEL_QC_NAME = 'GrandQC_MPP1.pth'
-MPP_MODEL_1 = 1
+MPP_MODEL = 1
 ```
 
 
@@ -127,10 +155,23 @@ abd then same as the usage above.
 
 ## Citation
 
-If you use GrandQC or benchmark in your research, please cite this project.
+If you use GrandQC or benchmark in your research, please consider citing our [paper](https://www.nature.com/articles/s41467-024-54769-y)
+
+Weng Z. et al. "GrandQC: a comprehensive solution to quality control problem in digital pathology"
+
+Nature Communications(2024). https://doi.org/10.1038/s41467-024-54769-y
 
 ```
-comming soon
+@article{Weng2024,
+  author = {Weng, Zhilong and Seper, Alexander and Pryalukhin, Alexey and Mairinger, Fabian and Wickenhauser, Claudia and Bauer, Marcus and Glamann, Lennert and Bläker, Hendrik and Lingscheidt, Thomas and Hulla, Wolfgang and Jonigk, Danny and Schallenberg, Simon and Bychkov, Andrey and Fukuoka, Junya and Braun, Martin and Schömig-Markiefka, Birgid and Klein, Sebastian and Thiel, Andreas and Bozek, Katarzyna and Netto, George J. and Quaas, Alexander and Büttner, Reinhard and Tolkach, Yuri},
+  title = {GrandQC: A comprehensive solution to quality control problem in digital pathology},
+  journal = {Nature Communications},
+  year = {2024},
+  pages = {10685},
+  doi = {10.1038/s41467-024-54769-y},
+  url = {https://doi.org/10.1038/s41467-024-54769-y},
+  issn = {2041-1723}
+  }
 ```
 
 ## License
