@@ -18,7 +18,7 @@
 
 *Nature Communications*
 
- [Journal Link](https://www.nature.com/articles/s41467-024-54769-y) | [Open Access Read Link](https://rdcu.be/d3I7H) | [Download Model](https://zenodo.org/records/14041538) | [Cite](#reference) 
+ [Journal Link](https://www.nature.com/articles/s41467-024-54769-y) | [Open Access Read Link](https://rdcu.be/d3I7H) | [Download Model](https://zenodo.org/records/14041538) | [Cite](#Citation) 
 
 **Abstract:** Histological slides contain numerous artifacts that can significantly deterioratethe performance of image analysis algorithms. Here we develop the GrandQCtool for tissue and multi-class artifact segmentation. GrandQC allows for high-precision tissue segmentation (Dice score 0.957) and segmentation of tissuewithout artifacts (Dice score 0.919–0.938 dependent on magnification). Slidesfrom 19 international pathology departments digitized with the most commonscanning systems and from The Cancer Genome Atlas dataset were used toestablish a QC benchmark, analyzing inter-institutional, intra-institutional,temporal, and inter-scanner slide quality variations. GrandQC improves theperformance of downstream image analysis algorithms. We open-source theGrandQC tool, our large manually annotated test dataset, and all QC masks forthe entire TCGA cohort to address the problem of QC in digital/computationalpathology. GrandQC can be used as a tool to monitor sample preparation andscanning quality in pathology departments and help to track and eliminatemajor artifact sources.
 
