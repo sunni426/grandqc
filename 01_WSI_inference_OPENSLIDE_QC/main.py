@@ -27,11 +27,11 @@ DEVICE = 'cuda'
 
 # MODEL(S)
 MODEL_QC_DIR = './models/qc/'
-MODEL_QC_NAME = 'v35_E14.pth'
-MPP_MODEL_1 = 1.5
-M_P_S_MODEL_1 = 512
-ENCODER_MODEL_1 = 'timm-efficientnet-b0'
-ENCODER_MODEL_1_WEIGHTS = 'imagenet'
+MODEL_QC_NAME = 'GrandQC_MPP15.pth'
+MPP_MODEL = 1.5
+M_P_S_MODEL = 512
+ENCODER_MODEL = 'timm-efficientnet-b0'
+ENCODER_MODEL_WEIGHTS = 'imagenet'
 
 # CLASSES
 BACK_CLASS = 7
@@ -113,7 +113,7 @@ for slide_name in slide_names[start:end]:
         slide = open_slide(path_slide)
 
         # GET SLIDE INFO
-        p_s, patch_n_w_l0, patch_n_h_l0, mpp, w_l0, h_l0, obj_power = slide_info(slide, M_P_S_MODEL_1, MPP_MODEL_1)
+        p_s, patch_n_w_l0, patch_n_h_l0, mpp, w_l0, h_l0, obj_power = slide_info(slide, M_P_S_MODEL, MPP_MODEL)
 
         # LOAD TISSUE DETECTION MAP
         tis_det_map = Image.open(os.path.join(OUTPUT_DIR, 'tis_det_mask', slide_name + '_MASK.png'))
@@ -124,10 +124,10 @@ for slide_name in slide_names[start:end]:
         Classes: 0 - tissue, 1 - background
         '''
 
-        tis_det_map_mpp = np.array(tis_det_map.resize((int(w_l0 * mpp / MPP_MODEL_1), int(h_l0 * mpp / MPP_MODEL_1)), Image.Resampling.LANCZOS))
+        tis_det_map_mpp = np.array(tis_det_map.resize((int(w_l0 * mpp / MPP_MODEL), int(h_l0 * mpp / MPP_MODEL)), Image.Resampling.LANCZOS))
         map, full_mask = slide_process_single(model_prim, tis_det_map_mpp, slide, patch_n_w_l0, patch_n_h_l0, p_s,
-                                              M_P_S_MODEL_1, colors, ENCODER_MODEL_1,
-                                              ENCODER_MODEL_1_WEIGHTS, DEVICE, BACK_CLASS, MPP_MODEL_1, mpp, w_l0, h_l0)
+                                              M_P_S_MODEL, colors, ENCODER_MODEL,
+                                              ENCODER_MODEL_WEIGHTS, DEVICE, BACK_CLASS, MPP_MODEL, mpp, w_l0, h_l0)
 
         # Timer stop
         stop = timeit.default_timer()

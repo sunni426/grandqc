@@ -30,7 +30,7 @@ DEVICE = 'cuda'
 # MODEL 1: Artifacts detection
 
 MODEL_TUMOR_DIR = './models/qc/'
-MODEL_TUMOR_NAME = 'v35_E14.pth'
+MODEL_TUMOR_NAME = 'GrandQC_MPP15.pth'
 MPP_MODEL_1 = 1.5
 M_P_S_MODEL_1 = 512
 ENCODER_MODEL_1 = 'timm-efficientnet-b0'
@@ -64,7 +64,7 @@ obj_power = 99
 # =============================================================================
 # LOAD MODELS
 # =============================================================================
-model_prim = torch.load(MODEL_TUMOR_DIR + MODEL_TUMOR_NAME, map_location=DEVICE)
+model = torch.load(MODEL_TUMOR_DIR + MODEL_TUMOR_NAME, map_location=DEVICE)
 
 # ====================================================================
 # PREPARE REPORT FILE, OUTPUT FOLDERS
@@ -128,7 +128,7 @@ for slide_name in slide_names[start:end]:
         tis_det_map_mpp = np.zeros((int(w_l0 * mpp / MPP_MODEL_1), int(h_l0 * mpp / MPP_MODEL_1)))
 
     try:
-        map, full_mask = slide_process_single(model_prim, tis_det_map_mpp, slide, patch_n_w_l0, patch_n_h_l0, p_s,
+        map, full_mask = slide_process_single(model, tis_det_map_mpp, slide, patch_n_w_l0, patch_n_h_l0, p_s,
                                               M_P_S_MODEL_1, colors, ENCODER_MODEL_1,
                                               ENCODER_MODEL_1_WEIGHTS, DEVICE, BACK_CLASS)
     except Exception as e:

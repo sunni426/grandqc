@@ -18,7 +18,7 @@ DEVICE = 'cuda'
 
 # MODEL TISSUE DETECTION:
 MODEL_TD_DIR = './models/td/'
-MODEL_TD_NAME = 'Vs04_model_E10_dict.pth'
+MODEL_TD_NAME = 'Tissue_Detection_MPP10.pth'
 MPP_MODEL_TD = 10
 M_P_S_MODEL_TD = 512
 ENCODER_MODEL_TD = 'timm-efficientnet-b0'

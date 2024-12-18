@@ -12,7 +12,6 @@ def slide_info(slide, m_p_s, mpp_model):
 
     # Vendor
     # Extract and save dimensions of level [0]
-    # print(slide.shape)
     _, h_l0, w_l0 = slide.shape
     #print(slide.shape)
 
@@ -32,5 +31,4 @@ def slide_info(slide, m_p_s, mpp_model):
     print("Height - number of patches: ", patch_n_h_l0)
     print("Overall number of patches / slide (without tissue detection): ", patch_n_w_l0 * patch_n_h_l0)
 
-    # return(thumbnail as array, patch_n_w_l0, patch_n_h_l0)
-    return (p_s, patch_n_w_l0, patch_n_h_l0, mpp, w_l0, h_l0)
+    return p_s, patch_n_w_l0, patch_n_h_l0, mpp, w_l0, h_l0
