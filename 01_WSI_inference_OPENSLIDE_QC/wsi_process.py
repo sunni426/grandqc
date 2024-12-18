@@ -77,7 +77,7 @@ def slide_process_single(model, tis_det_map_mpp, slide, patch_n_w_l0, patch_n_h_
                 work_patch = work_patch.convert('RGB')
 
                 # Resize to model patch size
-                work_patch = work_patch.resize((m_p_s, m_p_s), Image.ANTIALIAS)
+                work_patch = work_patch.resize((m_p_s, m_p_s), Image.Resampling.LANCZOS)
 
                 image_pre = get_preprocessing(work_patch, preprocessing_fn, model_size)
                 x_tensor = torch.from_numpy(image_pre).to(DEVICE).unsqueeze(0)
@@ -118,7 +118,7 @@ def slide_process_single(model, tis_det_map_mpp, slide, patch_n_w_l0, patch_n_h_
 
     end_image_1class = make_1class_map_thr(end_image, colors)
     end_image_1class = Image.fromarray(end_image_1class)
-    end_image_1class = end_image_1class.resize((patch_n_w_l0*50, patch_n_h_l0*50), Image.ANTIALIAS)
+    end_image_1class = end_image_1class.resize((patch_n_w_l0*50, patch_n_h_l0*50), Image.Resampling.LANCZOS)
 
 
     return end_image_1class, end_image

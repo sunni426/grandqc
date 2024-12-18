@@ -19,6 +19,6 @@ def make_overlay(slide, wsi_heatmap_im, p_s, patch_n_w_l0, patch_n_h_l0, overlay
     area = (0, 0, wid, hei)
     slide_reduced_crop = slide_reduced.crop(area)
 
-    heatmap_temp = wsi_heatmap_im.resize(slide_reduced_crop.size, Image.ANTIALIAS)
+    heatmap_temp = wsi_heatmap_im.resize(slide_reduced_crop.size, Image.Resampling.LANCZOS)
     overlay = cv2.addWeighted(np.array(slide_reduced_crop), 0.7, np.array(heatmap_temp), 0.3, 0)
     return overlay

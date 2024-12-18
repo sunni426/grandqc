@@ -77,7 +77,7 @@ def slide_process_single(model, tis_det_map_mpp, slide, patch_n_w_l0, patch_n_h_
                 work_patch_pil = Image.fromarray(work_patch_np)
 
                 # Resize the image to the model patch size (m_p_s)
-                work_patch_resized = work_patch_pil.resize((m_p_s, m_p_s), Image.ANTIALIAS)
+                work_patch_resized = work_patch_pil.resize((m_p_s, m_p_s), Image.Resampling.LANCZOS)
 
                 # If needed, convert the image to RGB mode
                 work_patch_resized_rgb = work_patch_resized.convert('RGB')
@@ -110,6 +110,6 @@ def slide_process_single(model, tis_det_map_mpp, slide, patch_n_w_l0, patch_n_h_
 
     end_image_1class = make_1class_map_thr(end_image, colors)
     end_image_1class = Image.fromarray(end_image_1class)
-    end_image_1class = end_image_1class.resize((patch_n_w_l0*200, patch_n_h_l0*200), Image.ANTIALIAS) #what is 50 here?
+    end_image_1class = end_image_1class.resize((patch_n_w_l0*200, patch_n_h_l0*200), Image.Resampling.LANCZOS) #what is 50 here?
 
     return end_image_1class, end_image
