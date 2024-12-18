@@ -76,9 +76,14 @@ Here is an example of one ROI(Region of Interest) image from one Whole Slide Ima
   <img width="80%" alt="ROI and slide classification results" src="Figures/img.png">
 </div>
 
+### Model Output
 
+GrandQC is designed to segment tissue, background, and five different types of artifacts, including: Air Bubble & Slide Edge, Pen Marking, Out of Focus, Fold, and Dark Spot & Foreign. In the final model output, white represents tissue, black represents background, 
+and the five types of artifacts are displayed in distinct colors, as shown in the example below.
 
-
+<div align="center">
+  <img width="80%" alt="ROI and slide classification results" src="Figures/img2.png">
+</div>
 
 ## Installation
 
@@ -87,7 +92,7 @@ Here is an example of one ROI(Region of Interest) image from one Whole Slide Ima
 > 
 > git clone https://github.com/cpath-ukk/grandqc.git && cd grandqc
 > 
-> pip install -r requirement.txt
+> pip install -r requirements.txt
 
 ### Install Openslide
 > conda install -c conda-forge openslide openslide-python
