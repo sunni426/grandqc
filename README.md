@@ -78,7 +78,8 @@ Here is an example of one ROI(Region of Interest) image from one Whole Slide Ima
 
 ### Model Output
 
-GrandQC is designed to segment tissue, background, and five different types of artifacts, including: Air Bubble & Slide Edge, Pen Marking, Out of Focus, Fold, and Dark Spot & Foreign. In the final model output, white represents tissue, black represents background, 
+GrandQC is designed to segment tissue(1), background(7), and five different types of artifacts, including: Fold(2), Dark Spot & Foreign(3), Pen Marking(4), Air Bubble & Slide Edge(5), Out of Focus(6). 
+In the final model output, white represents tissue, black represents background, 
 and the five types of artifacts are displayed in distinct colors, as shown in the example below.
 
 <div align="center">
@@ -97,7 +98,7 @@ and the five types of artifacts are displayed in distinct colors, as shown in th
 ### Install Openslide
 > conda install -c conda-forge openslide openslide-python
 
-## How to use different versions (5x ,7x, 10x)
+## Models Download and Folder Structure 
 
 **We have released all the models on Zenodo**: 
 
@@ -105,7 +106,38 @@ Artifacts Detection Models: [Models](https://zenodo.org/records/14041538)
 
 Tissue Detection Models: [Model](https://zenodo.org/records/14507273)
 
+Download the model to the specified folder. The final folder structure should be as follows:
 
+```plaintext
+
+grandqc
+├── 01_WSI_inference_OPENSLIDE_QC   
+│   ├── models
+│   │    ├── qc
+│   │    │   ├── GrandQC_MPP1.pth
+│   │    │   ├── GrandQC_MPP15.pth
+│   │    │   └── GrandQC_MPP2.pth 
+│   │    └── td
+│   │        └── Tissue_Detection_MPP10.pth 
+│   ├── main.py
+│   ├── run_art.sh
+│   └── ...
+├── 02_WSI_inference_OME_TIFF_QC
+│   ├── models
+│   │    ├── qc
+│   │    │   ├── GrandQC_MPP1.pth
+│   │    │   ├── GrandQC_MPP15.pth
+│   │    │   └── GrandQC_MPP2.pth 
+│   │    └── td
+│   │        └── Tissue_Detection_MPP10.pth 
+│   ├── main.py
+│   ├── run_art.sh
+│   └── ...
+├── requirements.txt
+└── README.md
+```
+
+## How to use different versions (5x ,7x, 10x)
 
 The default version is 7x (Checkpoint: GrandQC_MPP15.pth)
 
@@ -123,7 +155,7 @@ For 10x, use:
 MODEL_QC_NAME = 'GrandQC_MPP1.pth'
 MPP_MODEL = 1
 ```
-
+## How to run the scripts
 
 ### For WSIs with the form of `.svs` (Leica), `.ndpi` (Hamamatsu), `.tiff` (Philips)
 
