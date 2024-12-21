@@ -30,8 +30,6 @@ GrandQC is an open-source tissue and multi-class artifact segmentation toolbox b
 
 The main branch works with **PyTorch 2+**. 
 
-The System is **Ubuntu 22.04**.
-
 <details open>
 <summary>Major features</summary>
 
