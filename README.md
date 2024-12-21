@@ -26,7 +26,7 @@
 
 ### Overview
 
-GrandQC is an open source artifacts segmentation toolbox based on PyTorch.
+GrandQC is an open-source tissue and multi-class artifact segmentation toolbox based on PyTorch.
 
 The main branch works with **PyTorch 2+**. 
 
