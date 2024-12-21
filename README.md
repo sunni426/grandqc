@@ -67,8 +67,11 @@ The System is **Ubuntu 22.04**.
 
 ### Model selection
 
-To balance accuracy and inference efficiency, we have trained three different models based on three magnifications (5x, 7x, and 10x). As the magnification decreases, the inference speed increases, but accuracy may be slightly affected. Users can choose the appropriate 
-model based on their specific requirements.
+To balance accuracy and inference efficiency, we have trained three different models based on three magnifications (5x, 7x, and 10x). As the magnification decreases, the inference speed increases, but accuracy may be slightly affected. 
+
+We consider 7x model to be an optimal choice for most applications.
+
+Please refer to publication for results of formal validation (pixel-wise segmentation accuracy) for 5x, 7x, and 10x GrandQC versions. 
 
 Here is an example of one ROI(Region of Interest) image from one Whole Slide Image:
 
@@ -100,11 +103,15 @@ and the five types of artifacts are displayed in distinct colors, as shown in th
 
 ## Models Download and Folder Structure 
 
-**We have released all the models on Zenodo**: 
+**Links to download model checkpoints**: 
 
-Artifacts Detection Models: [Models](https://zenodo.org/records/14041538)
+NOTE: the intended use of the GrandQC is firstly running a tissue segmentation model and then running artifact segmentation model.
+Although the artifact segmentation models also can detect background, the tissue segmentation model does it much quicker (at 1x magnification), within seconds.
 
-Tissue Detection Models: [Model](https://zenodo.org/records/14507273)
+Tissue Segmentation Model: [Model](https://zenodo.org/records/14507273)
+
+Artifact Segmentation Models: [Models](https://zenodo.org/records/14041538)
+
 
 Download the model to the specified folder. The final folder structure should be as follows:
 
