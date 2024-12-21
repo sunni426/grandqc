@@ -14,7 +14,7 @@
 
 # GrandQC
 
-## A comprehensive solution toquality control problem in digital pathology
+## A comprehensive solution to quality control problem in digital pathology
 
 *Nature Communications*
 
@@ -196,7 +196,7 @@ If you use GrandQC or benchmark in your research, please consider citing our [pa
 
 Weng Z. et al. "GrandQC: a comprehensive solution to quality control problem in digital pathology"
 
-Nature Communications(2024). https://doi.org/10.1038/s41467-024-54769-y
+Nature Communications (2024). https://doi.org/10.1038/s41467-024-54769-y
 
 ```
 @article{Weng2024,
