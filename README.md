@@ -79,9 +79,11 @@ Here is an example of one ROI(Region of Interest) image from one Whole Slide Ima
   <img width="80%" alt="ROI and slide classification results" src="Figures/img.png">
 </div>
 
-### Model Output (Pixel class coding)
+### Model Output (Pixel class coding / Class Labels)
 
-GrandQC TISSUE models segmentt tissue (1) and background (0).
+*The numbers in brackets correspond to each class*
+
+GrandQC TISSUE models segmentt tissue (0) and background (1).
 
 GrandQC ARTIFACT models segment tissue (1), background (7), and five different types of artifacts, including: Tissue folds (2), Dark spots & Foreign objects (3), Pen markings (4), Air Bubble & Slide Edge artifacts (5), and Out-of-focus artifacts (6). 
 
