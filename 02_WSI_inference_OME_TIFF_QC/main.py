@@ -14,10 +14,12 @@ import numpy as np
 import timeit
 import cv2
 import zarr
+import tifffile
 from skimage.io import imread
 from tqdm import tqdm
 import argparse
-Image.MAX_IMAGE_PIXELS = 1000000000
+# Image.MAX_IMAGE_PIXELS = 1000000000
+Image.MAX_IMAGE_PIXELS = None
 
 # DEVICE
 DEVICE = 'cuda'
@@ -86,19 +88,32 @@ maps_dir = os.path.join(OUTPUT_DIR, 'maps_qc')
 overlay_dir = os.path.join(OUTPUT_DIR, 'overlays_qc')
 mask_dir = os.path.join(OUTPUT_DIR, 'mask_qc')
 
-try:
-    os.makedirs(maps_dir)
-    os.makedirs(overlay_dir)
-    os.makedirs(mask_dir)
-except:
-    print('The target folders are already there ..')
+# try:
+#     os.makedirs(maps_dir)
+#     os.makedirs(overlay_dir)
+#     os.makedirs(mask_dir)
+# except:
+#     print('The target folders are already there ..')
+
+dirs_to_create = [maps_dir, overlay_dir, mask_dir]
+
+for directory in dirs_to_create:
+    if not os.path.exists(directory):
+        try:
+            os.makedirs(directory)
+            print(f"Directory created: {directory}")
+        except Exception as e:
+            print(f"Error creating directory {directory}: {e}")
+    else:
+        print(f"Directory already exists: {directory}")
 
 # ====================================================================
 # MAIN SCRIPT
 # =============================================================================
 
 # Read in slide names
-slide_names = sorted(os.listdir(SLIDE_DIR))
+# slide_names = sorted([f for f in os.listdir(SLIDE_DIR) if not f.startswith('.')])
+slide_names = ["19510_C11_US_SCAN_OR_001__151039-registered.ome.tif"]
 
 # Start analysis loop
 for slide_name in slide_names[start:end]:
@@ -106,16 +121,29 @@ for slide_name in slide_names[start:end]:
     start = timeit.default_timer()
     # Open slide
     path_slide = os.path.join(SLIDE_DIR, slide_name)
-    slide_tiff = imread(path_slide, aszarr=True)
-    slide_original = zarr.open(slide_tiff, mode='r')
-    slide = slide_original[0]
+    print(f'path_slide: {path_slide}')
+    # slide_tiff = imread(path_slide, aszarr=True) # Error - OSError: ImageIO does not generally support reading folders.
+    # slide_tiff = Image.open(path_slide)  # Use PIL to open the image
+    # slide_original = zarr.open(slide_tiff, mode='r')
+    # slide = slide_original[0]
 
+    # ALTERNATIVE
+    slide_tiff = tifffile.imread(path_slide)  # Read image into NumPy array
+    zarr_store = zarr.open('path_to_zarr_store', mode='w', shape=slide_tiff.shape, dtype=slide_tiff.dtype)
+    zarr_store[:] = slide_tiff
+    slide_original = zarr.open('path_to_zarr_store', mode='r')
+    slide = slide_original[:]  # Read all data from the Zarr store
+
+    # Transpose, Sunni 1/9
+    slide = np.transpose(slide, (2, 0, 1))
+    print(f'SLIDE INFO {slide.shape}')
+    
     # GET SLIDE INFO
     p_s, patch_n_w_l0, patch_n_h_l0, mpp, w_l0, h_l0 = slide_info(slide, M_P_S_MODEL_1, MPP_MODEL_1)
 
     # LOAD TISSUE DETECTION MAP
     try:
-        tis_det_map = Image.open(OUTPUT_DIR + "tis_det_mask/" + slide_name + '_MASK.png')
+        tis_det_map = Image.open(OUTPUT_DIR + "/tis_det_mask/" + slide_name + '_MASK.png')
         '''
         Tissue detection map is generated on MPP = 10
         This map is used for on-fly control of the necessity of model inference.
@@ -124,7 +152,8 @@ for slide_name in slide_names[start:end]:
         '''
         tis_det_map_mpp = np.array(tis_det_map.resize((int(w_l0 * mpp / MPP_MODEL_1),
                                                        int(h_l0 * mpp / MPP_MODEL_1)), Image.Resampling.LANCZOS))
-    except:
+    except Exception as e:
+        print(f"Loading tissue detection map issue, initialize map as all 0's. {e}")
         tis_det_map_mpp = np.zeros((int(w_l0 * mpp / MPP_MODEL_1), int(h_l0 * mpp / MPP_MODEL_1)))
 
     try:
@@ -144,7 +173,8 @@ for slide_name in slide_names[start:end]:
     # =============================================================================
     # 8. MAKE AND SAVE OVERLAY for C8: HEATMAP ON REDUCED AND CROPPED SLIDE CLON
     # =============================================================================
-    overlay = make_overlay(slide_original, map, p_s, patch_n_w_l0, patch_n_h_l0, OVERLAY_FACTOR)
+    # overlay = make_overlay(slide_original, map, p_s, patch_n_w_l0, patch_n_h_l0, OVERLAY_FACTOR) # og
+    overlay = make_overlay(slide, map, p_s, patch_n_w_l0, patch_n_h_l0, OVERLAY_FACTOR) # slide_original --> slide, Sunni
 
     # Save overlaid image
     overlay_im = Image.fromarray(overlay)
@@ -164,4 +194,4 @@ for slide_name in slide_names[start:end]:
     results = open(path_result, "a+")
     results.write(output_temp)
     results.close()
-    slide_tiff.close()
+    # slide_tiff.close()

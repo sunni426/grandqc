@@ -47,7 +47,7 @@ def slide_process_single(model, tis_det_map_mpp, slide, patch_n_w_l0, patch_n_h_
         h = he * p_s + 1
         if he == 0:
             h = 0
-        # print("Current cycle ", he + 1, " of ", patch_n_h_l0)
+        print("Current cycle ", he + 1, " of ", patch_n_h_l0)
         for wi in range(patch_n_w_l0):
             w = wi * p_s + 1
             if wi == 0:
@@ -91,7 +91,6 @@ def slide_process_single(model, tis_det_map_mpp, slide, patch_n_w_l0, patch_n_h_
 
                 mask_raw = np.argmax(predictions, axis=0).astype('int8')
                 mask = np.where(td_patch == 1, BACK_CLASS, mask_raw)
-
 
             else:
                 mask = np.full((512, 512), BACK_CLASS)

@@ -19,7 +19,7 @@ DEVICE = 'cuda'
 # MODEL(S)
 # MODEL TISSUE DETECTION:
 MODEL_TD_DIR = './models/td/'
-MODEL_TD_NAME = 'Tissue_Detection_MPP15.pth'
+MODEL_TD_NAME = 'Tissue_Detection_MPP10.pth'
 MPP_MODEL_TD = 10
 M_P_S_MODEL_TD = 512
 ENCODER_MODEL_TD = 'timm-efficientnet-b0'
@@ -50,13 +50,26 @@ tis_det_dir_over = os.path.join(OUTPUT_DIR, 'tis_det_overlay/')
 tis_det_dir_thumb = os.path.join(OUTPUT_DIR, 'tis_det_thumbnail/')
 tis_det_dir_mask_col = os.path.join(OUTPUT_DIR, 'tis_det_mask_col/')
 
-try:
-    os.makedirs(tis_det_dir_mask)
-    os.makedirs(tis_det_dir_over)
-    os.makedirs(tis_det_dir_thumb)
-    os.makedirs(tis_det_dir_mask_col)
-except:
-    print('The folders are already there ..')
+# # Buggy!! 1/9/25 Sunni
+# try:
+#     os.makedirs(tis_det_dir_mask)
+#     os.makedirs(tis_det_dir_over)
+#     os.makedirs(tis_det_dir_thumb)
+#     os.makedirs(tis_det_dir_mask_col)
+# except:
+#     print('The folders are already there ..')
+
+dirs_to_create = [tis_det_dir_mask, tis_det_dir_over, tis_det_dir_thumb, tis_det_dir_mask_col]
+
+for directory in dirs_to_create:
+    if not os.path.exists(directory):
+        try:
+            os.makedirs(directory)
+            print(f"Directory created: {directory}")
+        except Exception as e:
+            print(f"Error creating directory {directory}: {e}")
+    else:
+        print(f"Directory already exists: {directory}")
 
 # Get slide names
 slide_names = sorted(os.listdir(SLIDE_DIR))
@@ -160,12 +173,17 @@ for slide_name in slide_names:
                 end_image = np.concatenate((end_image, temp_image), axis=0)
                 end_image_class_map = np.concatenate((end_image_class_map, temp_image_class_map), axis=0)
 
+        print(os.path.join(tis_det_dir_mask, slide_name + '_MASK.png'))
+        
         Image.fromarray(end_image).save(os.path.join(tis_det_dir_mask, slide_name + '_MASK.png'))
         Image.fromarray(end_image_class_map).save(os.path.join(tis_det_dir_mask_col, slide_name + '_MASK_COL.png'))
         overlay = cv2.addWeighted(np.array(image), OVER_IMAGE, end_image_class_map, OVER_MASK, 0)
         overlay = Image.fromarray(overlay)
         overlay.save(os.path.join(tis_det_dir_over, slide_name + '_OVERLAY.jpg'))
         slide_tiff.close()
+
+        print('wsi tissue detection done')
+        
     except:
         print('Problem with a file:', slide_name)
 

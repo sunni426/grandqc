@@ -7,13 +7,14 @@ import numpy as np
 
 def slide_info(slide, m_p_s, mpp_model):
     # Microne per pixel
-    mpp = 0.2425 #for TCGA-AA- slides of COADREAD cohort
+    mpp = 0.325 #for TCGA-AA- slides of COADREAD cohort
     p_s = int(mpp_model / mpp * m_p_s)
 
     # Vendor
     # Extract and save dimensions of level [0]
-    _, h_l0, w_l0 = slide.shape
-    #print(slide.shape)
+    _, h_l0, w_l0 = slide.shape # og
+    # h_l0, w_l0, _ = slide.shape
+    print(f'slide shape: {slide.shape}')
 
     # Calculate number of patches to process
     patch_n_w_l0 = int(w_l0 / p_s)
