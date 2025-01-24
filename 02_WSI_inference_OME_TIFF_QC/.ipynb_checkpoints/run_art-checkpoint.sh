@@ -6,13 +6,18 @@
 #SBATCH --gres=gpu:1                           # Number of GPUS
 ##SBATCH --account=yu_ky98              # with gpu
 #SBATCH --account=yu_ky98_contrib     # with gpu_yu
-#SBATCH --mem=84G                      # Memory total in MiB (for all cores)
+#SBATCH --mem=44G                      # Memory total in MiB (for all cores)
 #SBATCH -o logs/immune_benchmark_%a_%j_%N.log
 #SBATCH -e logs/immune_benchmark_%a_%j_%N.log
 
-## === PARAMETERS ===
-module load gcc/6.2.0 cuda/11.2 miniconda3/23.1.0
-source activate /n/data2/hms/dbmi/kyu/lab/bal753/miniconda3/envs/grandqc
+
+
+# setting
+# SLIDE_FOLDER="/mnt/data2/bal753/Orion/CRC11" # "/path/to/the/slides/"
+# OUTPUT_DIR="~/CRC11" # "/path/to/the/result/"
+
+# SLIDE_FOLDER="/home/sul084/test_slides"
+# OUTPUT_DIR="/home/sul084/test_output"
 
 SLIDE_FOLDER="/home/sul084/orion_slides"
 OUTPUT_DIR="/home/sul084/orion_output"

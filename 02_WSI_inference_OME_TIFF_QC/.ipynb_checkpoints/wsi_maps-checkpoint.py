@@ -10,9 +10,11 @@ def make_overlay(slide, wsi_heatmap_im, p_s, patch_n_w_l0, patch_n_h_l0, overlay
     # _, h_l0, w_l0 = slide[0].shape # og
     h_l0, w_l0 = slide[0].shape
 
-    # image_or = np.array(slide[1]) # og
-    image_or = np.array(slide) 
+    # image_or = np.array(slide[1]) # og. useful for many slides, 
+    image_or = np.array(slide) # for single slide analysis
+    # print(f'slide[1] shape: {slide[1].shape}')
     image_or = np.transpose(image_or, (1, 2, 0))
+    # print(f'slide[1] shape after transpose: {slide[1].shape}')
     slide_reduced = cv2.resize(image_or, (int(w_l0 // overlay_factor), int(h_l0 // overlay_factor)), interpolation=cv2.INTER_CUBIC)
     slide_reduced = Image.fromarray(slide_reduced)
 
