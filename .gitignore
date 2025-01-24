@@ -1,1 +1,6 @@
+__pycache__
+__pycache__/
+.vscode
+*.log
+*slurm
 *.pth
