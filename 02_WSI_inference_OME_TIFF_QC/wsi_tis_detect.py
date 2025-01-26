@@ -20,6 +20,7 @@ DEVICE = 'cuda'
 # MODEL TISSUE DETECTION:
 MODEL_TD_DIR = './models/td/'
 MODEL_TD_NAME = 'Tissue_Detection_MPP10.pth'
+#TODO check the meaning of MPP_MODEL_TD, if the model is trained in 10X, the corresponding mpp should be 1 um/pixel.
 MPP_MODEL_TD = 10
 M_P_S_MODEL_TD = 512
 ENCODER_MODEL_TD = 'timm-efficientnet-b0'
