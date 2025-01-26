@@ -17,7 +17,7 @@ source activate /n/data2/hms/dbmi/kyu/lab/bal753/miniconda3/envs/grandqc
 SLIDE_FOLDER="/home/sul084/orion_slides"
 OUTPUT_DIR="/home/sul084/orion_output"
 
-python wsi_tis_detect.py --slide_folder "$SLIDE_FOLDER" --output_dir "$OUTPUT_DIR"
+python wsi_tis_detect.py --slide_folder "$SLIDE_FOLDER" --output_dir "$OUTPUT_DIR" --mpp 0.325
 
 python main.py --slide_folder "$SLIDE_FOLDER" --output_dir "$OUTPUT_DIR"
 
